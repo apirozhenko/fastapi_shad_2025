@@ -1,5 +1,9 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+# Для загрузки данных из .env-файла
+from dotenv import load_dotenv
+load_dotenv()
+
 
 class Settings(BaseSettings):
     # for PostgreSQL

@@ -12,7 +12,8 @@ Content-Type: application/json
     "title": "Clean Architecture",
     "author": " Robert Martin",
     "count_pages": 300,
-    "year": 2025
+    "year": 2025,
+    "seller_id": 1
 }
 
 ###
@@ -41,7 +42,9 @@ Content-Type: application/json
     "title": "Clean Code",
     "author": "Robert Martin",
     "year": 2022,
-    "pages": 310
+    "pages": 310,
+    "seller_id": 2
+    
 }
 
 ###

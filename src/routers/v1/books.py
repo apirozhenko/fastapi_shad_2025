@@ -7,6 +7,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy import select
 from src.models.books import Book
+from src.models.sellers import Seller
 from src.schemas import IncomingBook, ReturnedAllbooks, ReturnedBook
 from icecream import ic
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -29,14 +30,21 @@ async def create_book(
     session: DBSession,
 ):  # прописываем модель валидирующую входные данные
     # session = get_async_session() вместо этого мы используем иньекцию зависимостей DBSession
+    
+    # Добавим проверку на существование продавца в базе
+    seller = await session.get(Seller, book.seller_id)
 
-    # это - бизнес логика. Обрабатываем данные, сохраняем, преобразуем и т.д.
+    if not seller:
+        return Response(status_code=status.HTTP_404_NOT_FOUND)
+    
+
     new_book = Book(
         **{
             "title": book.title,
             "author": book.author,
             "year": book.year,
             "pages": book.pages,
+            "seller_id": book.seller_id 
         }
     )
 
